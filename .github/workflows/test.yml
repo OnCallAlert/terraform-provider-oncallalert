@@ -1,0 +1,27 @@
+# Unit tests, vet and a docs drift check on every push and PR. Acceptance tests need a live
+# OnCallAlert server and run locally (see CONTRIBUTING.md).
+name: Test
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md"]
+  pull_request:
+    paths-ignore: ["**.md"]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - run: go vet ./...
+      - run: go test -count=1 ./...
+      - name: Docs are up to date
+        run: |
+          make docs
+          git diff --exit-code -- docs/
