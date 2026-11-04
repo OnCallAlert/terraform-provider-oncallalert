@@ -90,11 +90,8 @@ and data source is in [`docs/`](docs/) and on the Terraform Registry.
 Pulumi can use this provider directly. In your Pulumi project run:
 
 ```sh
-pulumi package add terraform-provider registry.terraform.io/OnCallAlert/oncallalert
+pulumi package add terraform-provider OnCallAlert/oncallalert
 ```
-
-(Pulumi looks up short names like `OnCallAlert/oncallalert` in the OpenTofu registry, so use the full
-Terraform Registry address shown above.)
 
 This generates a local SDK for your project's language. Configure it with `oncallalert:url` and
 `oncallalert:token` (`pulumi config set --secret oncallalert:token ...`), or the same `ONCALLALERT_URL` /
