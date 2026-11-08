@@ -198,3 +198,17 @@ func TestFindUserByEmail_PagesUntilMatch(t *testing.T) {
 		t.Fatalf("got user %q, want 2", u.ID)
 	}
 }
+
+func TestFindUserByEmail_ViewerAndOwnerRoles(t *testing.T) {
+	for _, role := range []string{"viewer", "owner"} {
+		t.Run(role, func(t *testing.T) {
+			c := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
+				reply(w, `{"data":{"users":{"nodes":[{"id":"1","email":"a@x.io","role":"`+role+`"}],"pageInfo":{"hasNextPage":false,"endCursor":""}}}}`)
+			})
+			u, err := c.FindUserByEmail(context.Background(), "a@x.io")
+			if err != nil || u.Role != role {
+				t.Fatalf("got %+v, err %v; want role %q", u, err, role)
+			}
+		})
+	}
+}
