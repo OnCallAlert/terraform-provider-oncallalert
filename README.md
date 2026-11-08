@@ -10,9 +10,11 @@ Works with Terraform, OpenTofu and Pulumi (see [Pulumi](#pulumi)).
 
 ## Requirements
 
-- An OnCallAlert server **newer than v1.0.0** (the IaC API is not in v1.0.0).
+- An OnCallAlert server **v2.1.0 or newer**. This is needed for the `viewer` and `owner` user roles (the `role`
+  attribute of the `oncallalert_user` data source can be `viewer`, `user`, `admin` or `owner`).
 - An API token with **Admin** scope: in the web UI open your profile, then *API Tokens*, then create a token
   with scope *Admin*. Only admins can do this, and the token can never do more than its owner.
+  A token owned by a Viewer is read-only: it can read data sources but cannot create or change anything.
 - Terraform >= 1.0 or OpenTofu >= 1.6.
 
 ## Usage

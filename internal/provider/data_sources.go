@@ -35,7 +35,7 @@ func (d *userDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, r
 			"email": schema.StringAttribute{Required: true},
 			"id":    schema.StringAttribute{Computed: true},
 			"name":  schema.StringAttribute{Computed: true},
-			"role":  schema.StringAttribute{Computed: true},
+			"role":  schema.StringAttribute{Computed: true, Description: "The user's role: `viewer`, `user`, `admin` or `owner` (`viewer` and `owner` need server v2.1.0 or newer). Viewers are read-only, and so are their API tokens."},
 		},
 	}
 }

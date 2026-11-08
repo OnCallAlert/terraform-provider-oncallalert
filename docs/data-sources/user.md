@@ -29,4 +29,4 @@ data "oncallalert_user" "bob" {
 
 - `id` (String) The ID of this resource.
 - `name` (String)
-- `role` (String)
+- `role` (String) The user's role: `viewer`, `user`, `admin` or `owner` (`viewer` and `owner` need server v2.1.0 or newer). Viewers are read-only, and so are their API tokens.
